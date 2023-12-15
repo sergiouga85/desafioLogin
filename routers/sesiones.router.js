@@ -27,7 +27,7 @@ sesionesRouter.post ('/login', async (req,res)=>{
 
    }else{
 
-      const usuario= await dbUsuarios.findOne().lean()
+      const usuario= await dbUsuarios.findOne({email}).lean()
       console.log(usuario)
       console.log(email)
       console.log(password)
@@ -48,10 +48,13 @@ sesionesRouter.post ('/login', async (req,res)=>{
     
        req.session['user']= datosUsuario
        res.status(201).json({ status: 'success', message:'login success'})
-
+      
+       
    }
 
 })
+
+
 
 
 sesionesRouter.get('/current', (req,res)=>{

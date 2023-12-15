@@ -1,4 +1,4 @@
-const formLogin = document.querySelector('form')
+const formLogin = document.getElementById('register')
 
 formLogin?.addEventListener('submit', async event => {
   event.preventDefault()
@@ -8,7 +8,7 @@ formLogin?.addEventListener('submit', async event => {
 
   try {
     const res = await fetch(
-      '/api/sesiones/login',
+      '/api/usuarios/register',
       {
         method:'POST',
         body: formDataEncoded,

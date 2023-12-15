@@ -5,7 +5,7 @@ import {soloLogueadosApi} from '../src/middlewares/sesiones.js'
 export const usuariosRouter= Router()
 
 
-usuariosRouter.post('/',async (req, res)=>{
+usuariosRouter.post('/register',async (req, res)=>{
     try{
     const usuario= await dbUsuarios.create(req.body)
     res.status(201).json({static:'success' , payload: usuario})

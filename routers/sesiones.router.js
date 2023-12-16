@@ -9,49 +9,42 @@ sesionesRouter.use(json())
 sesionesRouter.use(urlencoded({extended: true}))
 
 
-sesionesRouter.post ('/login', async (req,res)=>{
+sesionesRouter.post('/login', async (req, res) => {
+  try {
+    const { email, password } = req.body;
+    let datosUsuario = {};
 
-  const {email, password} = req.body
+    if (email === 'adminCoder@coder.com' && password === 'adminCod3r123') {
+      datosUsuario = {
+        email: 'admin',
+        nombre: 'admin',
+        apellido: 'admin',
+        rolAdmin: true,
+      };
+    } else if (email == null || password == null) {
+      return res.status(400).json({ status: 'error', message: 'Email and password are required' });
+    } else {
+      const usuario = await dbUsuarios.findOne({ email }).lean();
 
-  let datosUsuario={}
+      if (!usuario || password !== usuario.password) {
+        return res.status(400).json({ status: 'error', message: 'Invalid email or password' });
+      }
 
-  
-   if(email == 'adminCoder@coder.com' && password == 'adminCod3r123'){
-
-    datosUsuario={
-      email: 'admin',
-      nombre: 'admin',
-      apellido: 'admin',
-      rolAdmin:true
-     }
-
-   }else{
-
-      const usuario= await dbUsuarios.findOne({email}).lean()
-      /*console.log(usuario)
-      console.log(email)
-      console.log(password)*/
-
-      if(email !== usuario.email){
-        return res.status(400).json({ status: 'error', message:'login failed'})
-       }
-    
-       if(password !== usuario.password){
-        return res.status(400).json({ status: 'error', message:'login failed'})
-       }
-    
-       datosUsuario={
+      datosUsuario = {
         email: usuario.email,
         nombre: usuario.nombre,
         apellido: usuario.apellido,
-        rolUsuario:true
-       }
-    
-       req.session['user']= datosUsuario
-       res.status(201).json({ status: 'success', message:'login success'})  
-   }
+        rolUsuario: true,
+      };
 
-})
+      req.session['user'] = datosUsuario;
+      return res.status(201).json({ status: 'success', message: 'Login successful' });
+    }
+  } catch (error) {
+    console.error('Error:', error.message);
+    return res.status(500).json({ status: 'error', message: 'Internal server error' });
+  }
+});
 
 sesionesRouter.get('/current', (req,res)=>{
   if(req.session['user']){

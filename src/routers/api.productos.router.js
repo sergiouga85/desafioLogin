@@ -1,5 +1,5 @@
 import { Router } from 'express'
-import { Producto } from '../src/models/productos.mongoose.js'
+import { Producto } from '../models/productos.mongoose.js'
 
 export const productosRouter = Router()
 

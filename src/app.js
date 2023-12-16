@@ -3,8 +3,8 @@ import {PORT, MONGODB_CNX_STR} from './config.js'
 import {engine} from 'express-handlebars'
 import mongoose from 'mongoose'
 import {sesiones} from './middlewares/sesiones.js'
-import { apiRouter } from '../routers/apirest.router.js'
-import { webRouter } from '../routers/web.router.js'
+import { apiRouter } from './routers/apirest.router.js'
+import { webRouter } from './routers/web.router.js'
 
 await mongoose.connect(MONGODB_CNX_STR)
 console.log(`conectado ala Base de datos en:${MONGODB_CNX_STR}`)

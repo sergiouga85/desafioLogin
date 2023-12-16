@@ -1,6 +1,6 @@
 import {Router} from 'express'
-import {dbUsuarios} from '../src/models/User.js'
-import {soloLogueadosApi} from '../src/middlewares/sesiones.js'
+import {dbUsuarios} from '../models/User.js'
+import {soloLogueadosApi} from '../middlewares/sesiones.js'
 
 export const usuariosRouter= Router()
 

@@ -1,5 +1,5 @@
 import {Router, json, urlencoded} from 'express'
-import {dbUsuarios} from '../src/models/User.js'
+import {dbUsuarios} from '../models/User.js'
 
 
 export const sesionesRouter= Router()

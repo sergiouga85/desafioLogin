@@ -13,16 +13,15 @@ formLogin?.addEventListener('submit', async (event) => {
       headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
     })
 
-    // Verificar si la solicitud fue exitosa (código de respuesta 2xx)
     if (res.ok) {
-      // Redirigir a la nueva página
+      
       window.location.href = '/productos'
     } else {
-      // Manejar otros casos si es necesario
-      const data = await res.json(); // Leer el cuerpo de la respuesta como JSON
+      
+      const data = await res.json(); 
       if (data.status === 'error') {
         if (data.message === 'Invalid email or password') {
-          // Manejar el error de inicio de sesión 
+          
           Swal.fire({
             title: "Fallo de inicio",
             icon: "error",
@@ -30,10 +29,7 @@ formLogin?.addEventListener('submit', async (event) => {
             text: "Ingresar usuario y contraseña!"
           });
         } else if (data.message === 'Internal server error') {
-          // Manejar otros errores internos del servidor
-          alert('Internal server error. Please try again later.');
-          // O recargar la página
-          // window.location.reload();
+          alert('Internal server error. Please try again later.'); 
         } else {
           console.log('Error desconocido:', data.message);
         }

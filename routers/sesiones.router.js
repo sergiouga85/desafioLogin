@@ -28,9 +28,9 @@ sesionesRouter.post ('/login', async (req,res)=>{
    }else{
 
       const usuario= await dbUsuarios.findOne({email}).lean()
-      console.log(usuario)
+      /*console.log(usuario)
       console.log(email)
-      console.log(password)
+      console.log(password)*/
 
       if(email !== usuario.email){
         return res.status(400).json({ status: 'error', message:'login failed'})
@@ -43,19 +43,15 @@ sesionesRouter.post ('/login', async (req,res)=>{
        datosUsuario={
         email: usuario.email,
         nombre: usuario.nombre,
-        apellido: usuario.apellido
+        apellido: usuario.apellido,
+        rolUsuario:true
        }
     
        req.session['user']= datosUsuario
-       res.status(201).json({ status: 'success', message:'login success'})
-      
-       
+       res.status(201).json({ status: 'success', message:'login success'})  
    }
 
 })
-
-
-
 
 sesionesRouter.get('/current', (req,res)=>{
   if(req.session['user']){
@@ -63,7 +59,6 @@ sesionesRouter.get('/current', (req,res)=>{
   }
   res.status(400).json({ status: 'error', message:'No hay una session iniciada'})
 })
-
 
 sesionesRouter.post ('/logout', (req,res)=>{
     req.session.destroy(err =>{
@@ -73,11 +68,3 @@ sesionesRouter.post ('/logout', (req,res)=>{
     res.json({status:'success' , message:'logout OK!'})
   })
 })
-
-
-/*
-app.get('/', (req,res)=>{
-  
-
-})
-*/

@@ -16,31 +16,3 @@ export const sesiones =session({
     saveUninitialized:true
 })
 
-export function soloLogueadosApi(req, res, next){
-    if(!req.session['user']){
-        return res.status(400).json({status: 'error' , message: 'necesita iniciar sesion'})
-    }
-    next()
-}
-
-export function soloLogueadosWeb(req, res, next){
-    if(!req.session['user']){
-        //return res.render('errorNoLoggedIN.handlebars', {})
-        return res.redirect('/login')
-
-    }
-    next()
-}
-
-
-/*
-function showCookies(req,res,next){
-    console.dir(req.session)
-    next()
-}
-
-
-app.use(showCookies)
-
-
-*/

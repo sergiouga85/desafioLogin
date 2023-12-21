@@ -3,6 +3,7 @@ import {PORT, MONGODB_CNX_STR} from './config.js'
 import {engine} from 'express-handlebars'
 import mongoose from 'mongoose'
 import {sesiones} from './middlewares/sesiones.js'
+import {autentication} from './middlewares/passport.js'
 import { apiRouter } from './routers/apirest.router.js'
 import { webRouter } from './routers/web.router.js'
 
@@ -15,6 +16,7 @@ const app = express()
 app.engine('handlebars', engine())
 app.use('/static', express.static('./static'))
 app.use(sesiones)
+app.use(autentication)
 app.use('/api',apiRouter)
 app.use('/',webRouter)
 
